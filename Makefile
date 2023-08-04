@@ -5,7 +5,7 @@ PWD := $(CURDIR)
 .PHONY: code-to-pi dtb
 
 code-to-pi: dtb
-	scp -r . ubuntu@192.168.1.249:/home/bcm2711-gpio-driver
+	scp -r gpio-driver.c bcm2711-overlay.dtbo Makefile ubuntu@192.168.1.249:/home/bcm2711-gpio-driver
 
 dtb:
 	dtc -@ -I dts -O dtb -o bcm2711-overlay.dtbo bcm2711-overlay.dts
