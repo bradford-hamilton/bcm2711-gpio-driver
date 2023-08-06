@@ -2,13 +2,10 @@ obj-m += gpio-driver.o
 
 PWD := $(CURDIR)
 
-.PHONY: code-to-pi dtb
+.PHONY: code-to-pi
 
-code-to-pi: dtb
-	scp -r gpio-driver.c bcm2711-overlay.dtbo Makefile ubuntu@192.168.1.249:/home/bcm2711-gpio-driver
-
-dtb:
-	dtc -@ -I dts -O dtb -o bcm2711-overlay.dtbo bcm2711-overlay.dts
+code-to-pi:
+	scp -r gpio-driver.c bcm2711-gpio.dtsi Makefile ubuntu@192.168.1.250:/home/ubuntu/bcm2711-gpio-driver
 
 # From pi session
 all:
@@ -19,5 +16,3 @@ clean:
 
 move-dtb:
 	sudo cp bcm2711-overlay.dtbo /boot/firmware/overlays
-
-# echo "dtoverlay=bcm2711-overlay" | sudo tee -a /boot/firmware/usercfg.txt
