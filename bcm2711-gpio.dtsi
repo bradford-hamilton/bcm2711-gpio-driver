@@ -1,8 +1,6 @@
 // #include <dt-bindings/gpio/gpio.h>
 // #include <dt-bindings/pinctrl/bcm2835.h>
 
-/dts-v1/;
-
 / {
   rpi_gpio_devs {
     compatible = "bradford,bcm2711-gpio-driver";
@@ -71,36 +69,4 @@
       0 /* BCM2835_PUD_OFF */
     >;
   };
-  // rpi_gpio6: rpi_gpio6 {
-  //   pins = "gpio6";
-  //   function = "alt1";
-  // };
-  // rpi_gpio5: rpi_gpio5 {
-  //   pins = "gpio5";
-  //   function = "alt1";
-  // };
-  // rpi_gpio25: rpi_gpio25 {
-  //   pins = "gpio25";
-  //   function = "alt1";
-  // };
-  // rpi_gpio24: rpi_gpio24 {
-  //   pins = "gpio24";
-  //   function = "alt1";
-  // };
-  // rpi_gpio23: rpi_gpio23 {
-  //   pins = "gpio23";
-  //   function = "alt1";
-  // };
-  // rpi_gpio22: rpi_gpio22 {
-  //   pins = "gpio22";
-  //   function = "alt1";
-  // };
-  // rpi_gpio27: rpi_gpio27 {
-  //   pins = "gpio27";
-  //   function = "alt1";
-  // };
-  // rpi_gpio17: rpi_gpio17 {
-  //   pins = "gpio17";
-  //   function = "alt1";
-  // };
 };
