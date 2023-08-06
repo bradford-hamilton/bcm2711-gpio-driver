@@ -1,5 +1,5 @@
-// #include <dt-bindings/gpio/gpio.h>
-// #include <dt-bindings/pinctrl/bcm2835.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/bcm2835.h>
 
 / {
   rpi_gpio_devs {
@@ -10,35 +10,35 @@
 
     gpio1 {
       label = "gpio6";
-      bcm2711-gpios = <&gpio 6 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 6 GPIO_ACTIVE_HIGH >;
     };
     gpio2 {
       label = "gpio5";
-      bcm2711-gpios = <&gpio 5 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 5 GPIO_ACTIVE_HIGH >;
     };
     gpio3 {
       label = "gpio25";
-      bcm2711-gpios = <&gpio 25 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 25 GPIO_ACTIVE_HIGH >;
     };
     gpio4 {
       label = "gpio24";
-      bcm2711-gpios = <&gpio 24 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 24 GPIO_ACTIVE_HIGH >;
     };
     gpio5 {
       label = "gpio23";
-      bcm2711-gpios = <&gpio 23 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 23 GPIO_ACTIVE_HIGH >;
     };
     gpio6 {
       label = "gpio22";
-      bcm2711-gpios = <&gpio 22 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 22 GPIO_ACTIVE_HIGH >;
     };
     gpio7 {
       label = "gpio27";
-      bcm2711-gpios = <&gpio 27 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 27 GPIO_ACTIVE_HIGH >;
     };
     gpio8 {
       label = "gpio17";
-      bcm2711-gpios = <&gpio 17 0 /* GPIO_ACTIVE_HIGH */ >;
+      bcm2711-gpios = <&gpio 17 GPIO_ACTIVE_HIGH >;
     };
   };
 };
@@ -49,24 +49,24 @@
   rpi_gpios: rpi-gpios {
     brcm,pins = <6 5 25 24 23 22 27 17>; 
     brcm,function = <
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
-      1 /* BCM2835_FSEL_GPIO_OUT */
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
+      BCM2835_FSEL_GPIO_OUT
     >;
     brcm,pull = <
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
-      0 /* BCM2835_PUD_OFF */
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
+      BCM2835_PUD_OFF
     >;
   };
 };
