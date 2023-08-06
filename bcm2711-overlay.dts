@@ -5,79 +5,48 @@
 /plugin/;
 
 / {
-  compatible = "brcm,bcm2835";
+  compatible = "brcm,bcm2711";
 
   fragment@0 {
-    target-path = "/";
+    target = <&leds>;
+    compatible = "bradford,bcm2711-gpio-driver";
     __OVERLAY__ {
-      rpi_gpio_devs {
-        compatible = "bradford,bcm2711-gpio-driver";
-        pinctrl-names = "default";
-        pinctrl-0 = <&rpi_gpios>;
-        status = "okay";
-
-        gpio1 {
-          label = "gpio6";
-          gpios = <&gpio 6 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio2 {
-          label = "gpio5";
-          gpios = <&gpio 5 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio3 {
-          label = "gpio25";
-          gpios = <&gpio 25 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio4 {
-          label = "gpio24";
-          gpios = <&gpio 24 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio5 {
-          label = "gpio23";
-          gpios = <&gpio 23 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio6 {
-          label = "gpio22";
-          gpios = <&gpio 22 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio7 {
-          label = "gpio27";
-          gpios = <&gpio 27 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
-        gpio8 {
-          label = "gpio17";
-          gpios = <&gpio 17 0 /* GPIO_ACTIVE_HIGH */ >;
-        };
+      led1 {
+        label = "led1";
+        bcm2711-gpios = <&gpio 6 0>;
+      };
+      led2 {
+        label = "led2";
+        bcm2711-gpios = <&gpio 5 0>;
+      };
+      led3 {
+        label = "led3";
+        bcm2711-gpios = <&gpio 25 0>;
+      };
+      led4 {
+        label = "led4";
+        bcm2711-gpios = <&gpio 24 0>;
+      };
+      led5 {
+        label = "led5";
+        bcm2711-gpios = <&gpio 23 0>;
+      };
+      led6 {
+        label = "led6";
+        bcm2711-gpios = <&gpio 22 0>;
+      };
+      led7 {
+        label = "led7";
+        bcm2711-gpios = <&gpio 27 0>;
+      };
+      led8 {
+        label = "led8";
+        bcm2711-gpios = <&gpio 17 0>;
       };
     };
   };
 
-  fragment@1 {
-    target = <&gpio>;
-    __OVERLAY__ {
-      rpi_gpios: rpi-gpios {
-        brcm,pins = <6 5 25 24 23 22 27 17>; 
-        brcm,function = <
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-          1 /* BCM2835_FSEL_GPIO_OUT */
-        >;
-        brcm,pull = <
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-          0 /* BCM2835_PUD_OFF */
-        >;
-      };
-    };
+  __symbols__ {
+    leds = "/leds";
   };
 };
