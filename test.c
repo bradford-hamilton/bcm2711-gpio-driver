@@ -1,36 +1,42 @@
 #include <unistd.h>
 #include "gpio.h"
 
+static char *gpio_labels[] = {"gpio6", "gpio5", "gpio25", "gpio24", "gpio23", "gpio22", "gpio27", "gpio17"};
+
+void configure_leds();
+void set_leds(size_t num);
+
 int main()
 {
-  gpio_configure_direction("gpio6", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio5", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio27", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio25", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio24", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio23", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio22", DIRECTION_OUTPUT);
-  gpio_configure_direction("gpio17", DIRECTION_OUTPUT);
+  configure_leds();
 
   sleep(2);
 
-  gpio_write_value("gpio6", VALUE_HIGH);
-  gpio_write_value("gpio5", VALUE_HIGH);
-  gpio_write_value("gpio27", VALUE_HIGH);
-  gpio_write_value("gpio25", VALUE_HIGH);
-  gpio_write_value("gpio24", VALUE_HIGH);
-  gpio_write_value("gpio23", VALUE_HIGH);
-  gpio_write_value("gpio22", VALUE_HIGH);
-  gpio_write_value("gpio17", VALUE_HIGH);
+  set_leds(255);
+}
 
-  sleep(2);
+void configure_leds()
+{
+  size_t gpio_labels_len = sizeof(gpio_labels) / sizeof(gpio_labels[0]);
+  for (int i = gpio_labels_len - 1; i >= 0; i--) {
+    gpio_configure_direction(gpio_labels[i], DIRECTION_OUTPUT);
+  }
+}
 
-  gpio_write_value("gpio6", VALUE_LOW);
-  gpio_write_value("gpio5", VALUE_LOW);
-  gpio_write_value("gpio27", VALUE_LOW);
-  gpio_write_value("gpio25", VALUE_LOW);
-  gpio_write_value("gpio24", VALUE_LOW);
-  gpio_write_value("gpio23", VALUE_LOW);
-  gpio_write_value("gpio22", VALUE_LOW);
-  gpio_write_value("gpio17", VALUE_LOW);
+void set_leds(size_t num)
+{
+  size_t gpio_labels_len = sizeof(gpio_labels) / sizeof(gpio_labels[0]);
+  
+  for (int i = gpio_labels_len - 1; i >= 0; i--) {
+    size_t bit = (num >> i) & 1;
+    if (bit == 1) {
+      gpio_write_value(gpio_labels[i], VALUE_HIGH);
+    }
+  }
+
+  sleep(5);
+
+  for (int i = gpio_labels_len - 1; i >= 0; i--) {
+    gpio_write_value(gpio_labels[i], VALUE_LOW);
+  }
 }
