@@ -7,7 +7,7 @@
 #define INPUT "in"
 #define OUTPUT "out"
 
-int gpio_configure_direction(char *label, uint8_t direction)
+int gpio_configure_direction(char *label, gpio_direction_t direction)
 {
   char path[256];
   FILE *file;
@@ -31,7 +31,7 @@ int gpio_configure_direction(char *label, uint8_t direction)
   return 0;
 }
 
-int gpio_write_value(char *label, uint8_t value)
+int gpio_write_value(char *label, gpio_value_t value)
 {
   char path[256];
   FILE *file;
