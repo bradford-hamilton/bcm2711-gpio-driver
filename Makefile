@@ -5,7 +5,7 @@ PWD := $(CURDIR)
 .PHONY: code-to-pi
 
 code-to-pi:
-	scp -r gpio-driver.c bcm2711-gpio.dtsi Makefile ubuntu@192.168.1.250:/home/ubuntu/bcm2711-gpio-driver
+	scp -r gpio-driver.c bcm2711-gpio.dtsi gpio.h gpio.c test.c Makefile ubuntu@192.168.1.250:/home/ubuntu/bcm2711-gpio-driver
 
 # From pi session
 all:
