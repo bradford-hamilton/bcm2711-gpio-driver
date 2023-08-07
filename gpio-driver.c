@@ -108,7 +108,7 @@ static const struct attribute_group *gpio_attr_groups[] = {
 };
 
 static struct of_device_id gpio_dev_match[] = {
-  { .compatible = "bradford,bcm2711-gpio-driver" },
+  { .compatible = "bradford,bcm2711-gpio" },
   {},
 };
 
@@ -118,7 +118,7 @@ struct platform_driver gpio_sysfs_platform_driver = {
   .probe = gpio_sysfs_probe,
   .remove = gpio_sysfs_remove,
   .driver = {
-    .name = "bcm2711-gpio-driver",
+    .name = "bcm2711-gpio",
     .of_match_table = of_match_ptr(gpio_dev_match),
   },
 };

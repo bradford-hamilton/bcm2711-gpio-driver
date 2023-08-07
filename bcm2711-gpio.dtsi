@@ -3,7 +3,7 @@
 
 / {
   rpi_gpio_devs {
-    compatible = "bradford,bcm2711-gpio-driver";
+    compatible = "bradford,bcm2711-gpio";
     pinctrl-names = "default";
     pinctrl-0 = <&rpi_gpios>;
     status = "okay";
