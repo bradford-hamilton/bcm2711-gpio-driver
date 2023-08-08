@@ -26,13 +26,17 @@ ssize_t direction_show(struct device *dev, struct device_attribute *attr, char *
   char *direction;
   ssize_t written;
 
+  mutex_lock(&dev_data->dev_lock);
+
   dir = gpiod_get_direction(dev_data->desc);
   if (dir < 0) {
+    mutex_unlock(&dev_data->dev_lock);
     return dir;
   }
-
   direction = (dir == 0) ? "out" : "in";
   written = sprintf(buf, "%s\n", direction);
+
+  mutex_unlock(&dev_data->dev_lock);
 
   return written;
 }
@@ -42,6 +46,8 @@ ssize_t direction_store(struct device *dev, struct device_attribute *attr, const
   struct device_private_data *dev_data = dev_get_drvdata(dev);
   int ret;
 
+  mutex_lock(&dev_data->dev_lock);
+
   if (sysfs_streq(buf, "in")) {
     ret = gpiod_direction_input(dev_data->desc);
   } else if (sysfs_streq(buf, "out")) {
@@ -49,6 +55,8 @@ ssize_t direction_store(struct device *dev, struct device_attribute *attr, const
   } else {
     ret = -EINVAL;
   }
+
+  mutex_unlock(&dev_data->dev_lock);
 
   return ret ? ret : count;
 }
@@ -59,8 +67,12 @@ ssize_t value_show(struct device *dev, struct device_attribute *attr, char *buf)
   int value;
   ssize_t written;
 
+  mutex_lock(&dev_data->dev_lock);
+
   value = gpiod_get_value(dev_data->desc);
   written = sprintf(buf, "%d\n", value);
+
+  mutex_unlock(&dev_data->dev_lock);
 
   return written;
 }
@@ -71,12 +83,16 @@ ssize_t value_store(struct device *dev, struct device_attribute *attr, const cha
   int ret;
   long value;
 
+  mutex_lock(&dev_data->dev_lock);
+
   ret = kstrtol(buf, 0, &value);
   if (ret) {
+    mutex_unlock(&dev_data->dev_lock);
     return ret;
   }
-
   gpiod_set_value(dev_data->desc, value);
+
+  mutex_unlock(&dev_data->dev_lock);
 
   return count;
 }
@@ -84,7 +100,13 @@ ssize_t value_store(struct device *dev, struct device_attribute *attr, const cha
 ssize_t label_show(struct device *dev, struct device_attribute *attr, char *buf)
 {
   struct device_private_data *dev_data = dev_get_drvdata(dev);
-  return sprintf(buf, "%s\n", dev_data->label);
+  ssize_t written;
+  
+  mutex_lock(&dev_data->dev_lock);
+  written = sprintf(buf, "%s\n", dev_data->label);
+  mutex_unlock(&dev_data->dev_lock);
+  
+  return written;
 }
 
 static DEVICE_ATTR_RW(direction);
@@ -151,6 +173,8 @@ static int gpio_sysfs_probe(struct platform_device *pdev)
       dev_err(dev, "Cannot allocate memory\n");
       return -ENOMEM;
     }
+
+    mutex_init(&dev_data->dev_lock);
 
     if (of_property_read_string(child, "label", &name)) {
       dev_warn(dev, "Missing label information\n");
