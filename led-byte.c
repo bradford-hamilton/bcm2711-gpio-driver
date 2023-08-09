@@ -28,9 +28,7 @@ int main(int argc, char* argv[])
   }
 
   display_byte(num);
-
   sleep(3);
-
   clear_byte();
 }
 

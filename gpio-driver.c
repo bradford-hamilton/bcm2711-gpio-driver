@@ -248,5 +248,5 @@ module_exit(gpio_sysfs_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("bradford-hamilton");
-MODULE_DESCRIPTION("practice gpio driver for bcm2711");
+MODULE_DESCRIPTION("gpio driver for bcm2711");
 MODULE_VERSION("0.1");
