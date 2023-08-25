@@ -2,7 +2,6 @@
 #include "gpio.h"
 #include "lcd.h"
 
-// Initializes by instruction for the LCD based on datasheet power up.
 void lcd_init(void)
 {
   usleep(40 * 1000);                        // Wait for more than 40 ms after VCC rises to 2.7 V
@@ -31,7 +30,6 @@ static void write_4_bits(uint8_t data)
   lcd_enable();
 }
 
-// Starts data read/write.
 void lcd_enable(void)
 {
   gpio_write_value(LCD_GPIO_E, VALUE_LOW);
@@ -42,7 +40,6 @@ void lcd_enable(void)
   usleep(100);
 }
 
-// Sends a command to the LCD.
 void lcd_send_command(uint8_t cmd)
 {
   gpio_write_value(LCD_GPIO_RS, VALUE_LOW); // Set RS == 0 for LCD command
@@ -52,7 +49,6 @@ void lcd_send_command(uint8_t cmd)
   write_4_bits(cmd);                        // Low nibble
 }
 
-// Sends a character to the LCD for display.
 void lcd_print_char(uint8_t data)
 {
   gpio_write_value(LCD_GPIO_RS, VALUE_HIGH); // Set RS == 1 for data
@@ -62,7 +58,6 @@ void lcd_print_char(uint8_t data)
   write_4_bits(data);                        // Low nibble
 }
 
-// Sends a string to the LCD for display
 void lcd_print_string(char *message)
 {
   do {
@@ -70,7 +65,6 @@ void lcd_print_string(char *message)
   } while (message != '\0');
 }
 
-// Clears entire display and sets DDRAM address 0 in address counter.
 void lcd_display_clear()
 {
   lcd_send_command(0x1);
