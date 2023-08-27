@@ -2,9 +2,41 @@
 #include "gpio.h"
 #include "lcd.h"
 
+// Initialize all gpios for LCD as output and low value
+static void gpios_init()
+{
+  gpio_configure_direction(LCD_GPIO_RS, DIRECTION_OUTPUT);
+  gpio_configure_direction(LCD_GPIO_RW, DIRECTION_OUTPUT);
+  gpio_configure_direction(LCD_GPIO_E, DIRECTION_OUTPUT);
+  gpio_configure_direction(LCD_GPIO_D4, DIRECTION_OUTPUT);
+  gpio_configure_direction(LCD_GPIO_D5, DIRECTION_OUTPUT);
+  gpio_configure_direction(LCD_GPIO_D6, DIRECTION_OUTPUT);
+  gpio_configure_direction(LCD_GPIO_D7, DIRECTION_OUTPUT);
+
+  gpio_write_value(LCD_GPIO_RS, VALUE_LOW);
+  gpio_write_value(LCD_GPIO_RW, VALUE_LOW);
+  gpio_write_value(LCD_GPIO_E, VALUE_LOW);
+  gpio_write_value(LCD_GPIO_D4, VALUE_LOW);
+  gpio_write_value(LCD_GPIO_D5, VALUE_LOW);
+  gpio_write_value(LCD_GPIO_D6, VALUE_LOW);
+  gpio_write_value(LCD_GPIO_D7, VALUE_LOW);
+}
+
+// Writes 4 bits of data to D4, D5, D6, D7 lines for 4-bit mode.
+static void write_4_bits(uint8_t data)
+{
+  gpio_write_value(LCD_GPIO_D4, (data >> 0) & 0x1);
+  gpio_write_value(LCD_GPIO_D5, (data >> 1) & 0x1);
+  gpio_write_value(LCD_GPIO_D6, (data >> 2) & 0x1);
+  gpio_write_value(LCD_GPIO_D7, (data >> 3) & 0x1);
+
+  lcd_enable();
+}
+
 void lcd_init(void)
 {
-  usleep(40 * 1000);                        // Wait for more than 40 ms after VCC rises to 2.7 V
+  gpios_init();                             // Initialize GPIOs
+  usleep(40 * 1000);                        // Wait for more than 40 ms after LCD VCC rises to 2.7 V
   gpio_write_value(LCD_GPIO_RS, VALUE_LOW); // Set RS == 0 for LCD command
   gpio_write_value(LCD_GPIO_RW, VALUE_LOW); // Set RW == 0 for write
   write_4_bits(0x3);                        // Set D7, D6, D5, D4 to 0011
@@ -17,17 +49,6 @@ void lcd_init(void)
   lcd_send_command(0xE);                    // Turn display and cursor on
   lcd_display_clear();                      // Clear the display
   lcd_send_command(0x6);                    // Set entry mode increment addr by one
-}
-
-// Writes 4 bits of data to D4, D5, D6, D7 lines for 4-bit mode.
-static void write_4_bits(uint8_t data)
-{
-  gpio_write_value(LCD_GPIO_D4, (data >> 0) & 0x1);
-  gpio_write_value(LCD_GPIO_D5, (data >> 1) & 0x1);
-  gpio_write_value(LCD_GPIO_D6, (data >> 2) & 0x1);
-  gpio_write_value(LCD_GPIO_D7, (data >> 3) & 0x1);
- 
-  lcd_enable();
 }
 
 void lcd_enable(void)
