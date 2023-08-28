@@ -81,9 +81,14 @@ void lcd_print_char(uint8_t data)
 
 void lcd_print_string(char *message)
 {
+  int i = 0;
   do {
+    if (i == 16) {
+      lcd_send_command(0xC0); // Set DDRAM address so that the cursor is positioned at the head of the 2nd line.
+    }
     lcd_print_char((uint8_t)*message++);
-  } while (message != '\0');
+    i++;
+  } while (*message != '\0');
 }
 
 void lcd_display_clear()
