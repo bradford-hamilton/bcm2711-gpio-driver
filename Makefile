@@ -5,7 +5,7 @@ PWD := $(CURDIR)
 .PHONY: code-to-pi led-app
 
 code-to-pi:
-	scp -r gpio-driver.c bcm2711-gpio.dtsi gpio.h gpio.c led-byte-app.c Makefile ubuntu@192.168.1.250:/home/ubuntu/bcm2711-gpio-driver
+	scp -r bcm2711-gpio.dtsi Makefile *.c *.h ubuntu@192.168.1.249:/home/ubuntu/bcm2711-gpio-driver
 
 # From raspberry pi session
 all:
@@ -15,4 +15,7 @@ clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 
 led-app:
-	gcc -Wall -Wextra -o main led-byte-app.c gpio.c
+	gcc -Wall -Wextra -o ledbyte led-byte-app.c gpio.c
+
+lcd-app:
+	gcc -Wall -Wextra -o lcd lcd-app.c lcd.c gpio.c
