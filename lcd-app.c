@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  char message[33]; // 32 characters + 1 for null terminator
+  char message[33];
   strncpy(message, argv[1], 32);
   message[32] = '\0';
 
