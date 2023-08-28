@@ -1,1 +1,1 @@
-##### GPIO driver using device tree for Raspberry Pi 4 B+ (bcm2711). Added an LED app leveraging the driver to display an 8-bit unsigned int given by the user across 8 LEDs connected to the pi. Currently adding a library for the Hitachi HD44780 LCD display that also leverages the gpio driver.
+##### GPIO driver using device tree for Raspberry Pi 4 B+ (bcm2711). Added an LED app leveraging the driver to display an 8-bit unsigned int given by the user across 8 LEDs connected to the pi. Added a library for the Hitachi HD44780 LCD display that also leverages the gpio driver.
