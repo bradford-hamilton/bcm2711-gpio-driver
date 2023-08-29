@@ -8,7 +8,7 @@
 int main(int argc, char* argv[])
 {
   if (argc != 2) {
-    printf("Usage: %s \"<message>\" - (maximum 32 characters)\n", argv[0]);
+    printf("Usage: %s \"<message>\" - (1 - 32 characters)\n", argv[0]);
     return 1;
   }
 
