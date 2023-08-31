@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 
   size_t msg_len = strlen(argv[1]);
   if (msg_len > 32) {
-    fprintf(stderr, "Usage: please provide a message between 1-32 characters. You sent %ld characters\n", msg_len);
+    fprintf(stderr, "usage: provide a message between 1-32 characters. You sent %ld characters\n", msg_len);
     return 1;
   }
 
