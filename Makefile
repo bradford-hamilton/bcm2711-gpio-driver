@@ -1,11 +1,11 @@
-obj-m += gpio-platform-driver.o
+obj-m += gpio-driver.o
 
 PWD := $(CURDIR)
 
 .PHONY: code-to-pi led-app lcd-app
 
 code-to-pi:
-	scp -r bcm2711-gpio.dtsi Makefile *.c *.h ubuntu@192.168.1.249:/home/ubuntu/bcm2711-gpio-driver/platform
+	scp -r bcm2711-gpio.dtsi Makefile *.c *.h ubuntu@192.168.1.249:/home/ubuntu/bcm2711-gpio-driver
 
 # From raspberry pi session
 all:

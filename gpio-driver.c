@@ -136,7 +136,7 @@ static struct of_device_id gpio_dev_match[] = {
 
 static struct driver_private_data gpio_drv_priv_data;
 
-struct platform_driver gpio_sysfs_platform_driver = {
+struct platform_driver gpio_platform_driver = {
   .probe = gpio_sysfs_probe,
   .remove = gpio_sysfs_remove,
   .driver = {
@@ -193,12 +193,6 @@ static int gpio_sysfs_probe(struct platform_device *pdev)
       return ret;
     }
 
-    ret = gpiod_direction_output(dev_data->desc, 0);
-    if (ret) {
-      dev_err(dev, "gpio direction set failed\n");
-      return ret;
-    }
-
     gpio_drv_priv_data.dev[i] = device_create_with_groups(gpio_drv_priv_data.class_gpio, dev, 0, dev_data, gpio_attr_groups, dev_data->label);
     if (IS_ERR(gpio_drv_priv_data.dev[i])) {
       dev_err(dev, "Error during device_create\n");
@@ -229,7 +223,7 @@ static int __init gpio_sysfs_init(void)
     return PTR_ERR(gpio_drv_priv_data.class_gpio);
   }
 
-  platform_driver_register(&gpio_sysfs_platform_driver);
+  platform_driver_register(&gpio_platform_driver);
 
   pr_info("Module successfully loaded\n");
 
@@ -238,7 +232,7 @@ static int __init gpio_sysfs_init(void)
 
 static void __exit gpio_sysfs_exit(void)
 {
-  platform_driver_unregister(&gpio_sysfs_platform_driver);
+  platform_driver_unregister(&gpio_platform_driver);
   class_destroy(gpio_drv_priv_data.class_gpio);
   pr_info("Module successfully unloaded\n");
 }
