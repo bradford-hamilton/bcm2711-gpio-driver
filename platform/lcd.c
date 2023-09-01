@@ -91,13 +91,13 @@ void lcd_print_string(char *message)
   } while (*message != '\0');
 }
 
-void lcd_display_clear()
+void lcd_display_clear(void)
 {
   lcd_send_command(0x1);
   usleep(1700); // Execution Time = 82µs - 1.64ms
 }
 
-void lcd_display_return_home()
+void lcd_display_return_home(void)
 {
   lcd_send_command(0x2);
   usleep(1700); // Execution Time = 40µs - 1.6ms

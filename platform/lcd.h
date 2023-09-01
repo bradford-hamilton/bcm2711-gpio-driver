@@ -22,10 +22,10 @@ void lcd_enable(void);
 void lcd_send_command(uint8_t cmd);
 
 // Clears entire display and sets DDRAM address 0 in address counter.
-void lcd_display_clear();
+void lcd_display_clear(void);
 
 // Returns the cursor to the home position (Address 0).
-void lcd_display_return_home();
+void lcd_display_return_home(void);
 
 // Sends a character to the LCD for display.
 void lcd_print_char(uint8_t data);
