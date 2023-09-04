@@ -9,9 +9,10 @@ PWD := $(CURDIR)
 # Code generally has to follow the Linux coding style to be accepted.
 # This style is equivalent to the following settings:
 indent:
-	gindent -nbad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci4 \
-            -cli0 -d0 -di1 -nfc1 -i8 -ip0 -l80 -lp -npcs -nprs -npsl -sai \
-            -saf -saw -ncs -nsc -sob -nfca -cp33 -ss -ts8 -il1 gpio-driver.c
+  VERSION_CONTROL=none gindent \
+    -nbad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci4 \
+    -cli0 -d0 -di1 -nfc1 -i8 -ip0 -l80 -lp -npcs -nprs -npsl -sai \
+    -saf -saw -ncs -nsc -sob -nfca -cp33 -ss -ts8 -il1 gpio-driver.c
 
 code-to-pi:
 	scp -r bcm2711-gpio.dtsi Makefile *.c *.h ubuntu@192.168.1.249:/home/ubuntu/bcm2711-gpio-driver
